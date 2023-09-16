@@ -1,24 +1,12 @@
 package ma.youcode.schoolmanagementsystem;
 
-import java.sql.Date;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
-import ma.youcode.schoolmanagementsystem.entities.Calendar;
-import ma.youcode.schoolmanagementsystem.entities.Cours;
-import ma.youcode.schoolmanagementsystem.entities.Department;
-import ma.youcode.schoolmanagementsystem.entities.Professor;
-import ma.youcode.schoolmanagementsystem.entities.Registration;
-import ma.youcode.schoolmanagementsystem.entities.Role;
-import ma.youcode.schoolmanagementsystem.entities.Student;
 import ma.youcode.schoolmanagementsystem.services.CourseService;
 import ma.youcode.schoolmanagementsystem.services.ProfessorService;
 import ma.youcode.schoolmanagementsystem.services.RegistrationService;
 import ma.youcode.schoolmanagementsystem.services.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class SchoolManagementSystemApplication {
@@ -39,7 +27,8 @@ public class SchoolManagementSystemApplication {
 		SpringApplication.run(SchoolManagementSystemApplication.class, args);
 	}
 
-	@Bean
+/*	@Bean
+	@Order(10)
 	CommandLineRunner commandLineRunner() {
 		return args -> {
 			Student student = Student.builder()
@@ -62,17 +51,51 @@ public class SchoolManagementSystemApplication {
 							Calendar.builder().starDate(Date.valueOf("2023-10-01")).endDate(Date.valueOf("2024-07-30"))
 									.registrationEndDate(Date.valueOf("2023-10-20")).holdays(6).build())
 					.build();
-			cours = courseService.addCourse(cours);
-			student = studentService.addStudent(student);
+			Cours cours_2 = Cours.builder()
+					.name("Java")
+					.department(Department.builder().name("Java").build())
+					.professor(professor)
+					.calendar(
+							Calendar.builder().starDate(Date.valueOf("2023-09-01")).endDate(Date.valueOf("2024-07-30"))
+									.registrationEndDate(Date.valueOf("2023-09-20")).holdays(2).build())
+					.build();
+			Cours cours_3 = Cours.builder()
+					.name("Hibernate")
+					.department(Department.builder().name("Java").build())
+					.professor(professor)
+					.calendar(
+							Calendar.builder().starDate(Date.valueOf("2023-09-01")).endDate(Date.valueOf("2024-07-30"))
+									.registrationEndDate(Date.valueOf("2023-09-20")).holdays(9).build())
+					.build();
 
-			Student _student = studentService.getAllStudents().get(0);
-			Cours _cours = courseService.getCourseByName("React");
-			Registration registration = new Registration();
-			registration.setCours(_cours);
-			registration.setStudent(_student);
-			registration.setRegistrationDate(Date.valueOf("2021-09-01"));
-			registrationService.addRegistration(registration);
+			courseService.addCourse(cours);
+			courseService.addCourse(cours_2);
+			courseService.addCourse(cours_3);
+			studentService.addStudent(student);
 
 		};
 	}
+
+	@Bean
+	@Order(9)
+	CommandLineRunner runner() {
+		return args -> {
+
+			Student student = studentService.addStudent(Student.builder()
+					.firstName("Rachid")
+					.lastName("Daoudi")
+					.role(Role.builder().name("STUDENT").build())
+					.build());
+
+			Optional<Cours> cours = courseService.findCourseByName("Java");
+
+			if (cours.isPresent()) {
+				registrationService.addRegistration(Registration.builder()
+						.cours(cours.get())
+						.student(student)
+						.registrationDate(Date.valueOf("2021-01-01"))
+						.build());
+			}
+		};
+	}*/
 }

@@ -1,3 +1,10 @@
-
-
-
+services:
+  postgresql:
+    image: "postgres:15"
+    container_name: my_postgresql_db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: school-management-system

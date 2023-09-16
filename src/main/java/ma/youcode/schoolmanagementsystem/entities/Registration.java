@@ -25,7 +25,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class Registration {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne

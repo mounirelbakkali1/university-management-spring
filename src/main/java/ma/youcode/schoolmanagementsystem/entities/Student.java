@@ -18,7 +18,6 @@ import lombok.Setter;
 @Table(name = "students")
 @Getter
 @Setter
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Student extends User {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")

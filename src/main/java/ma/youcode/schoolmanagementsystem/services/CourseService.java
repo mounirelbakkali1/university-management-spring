@@ -1,6 +1,7 @@
 package ma.youcode.schoolmanagementsystem.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,8 @@ public class CourseService {
         return coursRepository.save(cours);
     }
 
-    public Cours getCourseByName(String coursName) {
-        return coursRepository.findCoursByName(coursName).orElse(new Cours());
+    public Optional<Cours> findCourseByName(String coursName) {
+        return coursRepository.findCoursByName(coursName);
     }
 
     public List<Cours> getAllCourses() {

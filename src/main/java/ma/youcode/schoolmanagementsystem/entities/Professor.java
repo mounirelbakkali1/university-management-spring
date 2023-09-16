@@ -11,6 +11,7 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,7 +25,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "professors")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Professor extends User {
 
     @OneToMany(mappedBy = "professor")
