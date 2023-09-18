@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import ma.youcode.schoolmanagementsystem.entities.Professor;
 import ma.youcode.schoolmanagementsystem.repositories.ProfessorRepository;
 
+import java.util.Optional;
+
 @Service
 public class ProfessorService {
 
@@ -20,4 +22,7 @@ public class ProfessorService {
         return professorRepository.save(professor);
     }
 
+    public Optional<Professor> findProfessor(Long id) {
+        return professorRepository.findById(id);
+    }
 }

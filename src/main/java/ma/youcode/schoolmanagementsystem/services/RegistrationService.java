@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
-import ma.youcode.schoolmanagementsystem.entities.Cours;
+import ma.youcode.schoolmanagementsystem.entities.Course;
 import ma.youcode.schoolmanagementsystem.entities.Registration;
 import ma.youcode.schoolmanagementsystem.repositories.RegistrationRepository;
 
@@ -19,7 +19,7 @@ public class RegistrationService {
     RegistrationRepository registrationRepository;
 
     public void addRegistration(Registration registration) {
-        if (isRegistrationOpen(registration.getCours())) {
+        if (isRegistrationOpen(registration.getCourse())) {
             registrationRepository.save(registration);
             log.info("Registration is saved");
         } else {
@@ -28,7 +28,7 @@ public class RegistrationService {
 
     }
 
-    private boolean isRegistrationOpen(Cours cours) {
-        return cours.getCalendar().getRegistrationEndDate().after(Date.valueOf(LocalDate.now()));
+    private boolean isRegistrationOpen(Course course) {
+        return course.getCalendar().getRegistrationEndDate().after(Date.valueOf(LocalDate.now()));
     }
 }
