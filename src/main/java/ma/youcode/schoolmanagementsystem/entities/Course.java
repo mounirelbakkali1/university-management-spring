@@ -1,20 +1,19 @@
 package ma.youcode.schoolmanagementsystem.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.*;
+
 import java.util.List;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "cours")
-public class Cours {
+@Table(name = "courses")
+@Getter
+@Setter
+public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "courses_seq_gen")
@@ -26,7 +25,8 @@ public class Cours {
     @ManyToOne(cascade = CascadeType.ALL)
     private Department department;
 
-    @OneToMany(mappedBy = "cours", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "course", cascade = CascadeType.MERGE)
+    @JsonIgnore
     private List<Registration> registrations;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -35,4 +35,11 @@ public class Cours {
     @ManyToOne(cascade = CascadeType.ALL)
     private Calendar calendar;
 
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

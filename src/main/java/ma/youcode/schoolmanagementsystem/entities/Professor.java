@@ -1,23 +1,12 @@
 package ma.youcode.schoolmanagementsystem.entities;
 
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,16 +14,28 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "professors")
-public class Professor extends User {
+public class Professor extends AppUser {
 
     @OneToMany(mappedBy = "professor")
-    private List<Cours> teachingCourses;
+    @JsonIgnore
+    private List<Course> teachingCourses;
 
     @Builder
     public Professor(Long id, String firstName, String lastName, Role role,
-            Address address, List<Cours> teachingCourses) {
+            Address address, List<Course> teachingCourses) {
         super(id, firstName, lastName, role, address);
         this.teachingCourses = teachingCourses;
+    }
+
+    @Override
+    public String toString() {
+        return "Professor{" +
+                "id=" + getId() +
+                ", firstName='" + getFirstName() + '\'' +
+                ", lastName='" + getLastName() + '\'' +
+                ", role=" + getRole().getName() +
+                ", address=" + getAddress() +
+                '}';
     }
 
 }

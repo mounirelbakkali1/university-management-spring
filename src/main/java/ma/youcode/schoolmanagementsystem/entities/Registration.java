@@ -1,39 +1,39 @@
 package ma.youcode.schoolmanagementsystem.entities;
 
-import java.sql.Date;
+import jakarta.persistence.*;
+import lombok.*;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.sql.Date;
 
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "registrations")
-@Data
+@Getter
+@Setter
 public class Registration {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "registrations_seq_gen")
+    @SequenceGenerator(name = "registrations_seq_gen", sequenceName = "registrations_id_seq")
     private Long id;
 
     @ManyToOne
     private Student student;
 
     @ManyToOne
-    private Cours cours;
+    private Course course;
 
     @Temporal(TemporalType.DATE)
     private Date registrationDate;
 
+    @Override
+    public String toString() {
+        return "Registration{" +
+                "id=" + id +
+                ", student=" + String.join(" ",student.getFirstName(), student.getLastName()) +
+                ", course=" + course.getName() +
+                ", registrationDate=" + registrationDate +
+                '}';
+    }
 }
