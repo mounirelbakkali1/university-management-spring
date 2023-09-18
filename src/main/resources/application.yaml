@@ -5,7 +5,9 @@
 spring:
   application:
       name: university-manager
-
+  sql:
+    init:
+      data-locations: classpath:/sql/data.sql
   jpa:
     show-sql: true
     generate-ddl: true
