@@ -1,6 +1,8 @@
 package ma.youcode.schoolmanagementsystem.controllers;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import ma.youcode.schoolmanagementsystem.dto.CoursDto;
 import ma.youcode.schoolmanagementsystem.entities.Cours;
 import ma.youcode.schoolmanagementsystem.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +25,9 @@ public class CoursController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cours createCours(@RequestBody Cours cours){
-        log.info("Creating new cours");
-        return courseService.addCourse(cours);
+    public Cours createCours(@RequestBody @Valid CoursDto course){
+        log.info("Creating new course..");
+        return courseService.addCourse(course);
     }
 
 
